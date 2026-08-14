@@ -193,10 +193,10 @@ export function RegisterForm() {
                 </motion.div>
                 <div className="grid gap-5 sm:grid-cols-2">
                   {[
-                    { id: 'leadName', label: 'Lead name', placeholder: 'Full name', value: lead.name, onChange: (v) => setLead({ ...lead, name: v }) },
-                    { id: 'leadEmail', label: 'Lead email', placeholder: 'you@college.edu', value: lead.email, onChange: (v) => setLead({ ...lead, email: v }), type: 'email' },
-                    { id: 'leadPhone', label: 'Phone', placeholder: '+91 ...', value: lead.phone, onChange: (v) => setLead({ ...lead, phone: v }) },
-                    { id: 'leadCollege', label: 'College', placeholder: 'Your institution', value: lead.college, onChange: (v) => setLead({ ...lead, college: v }) },
+                    { id: 'leadName', label: 'Lead name', placeholder: 'Full name', value: lead.name, onChange: (v: string) => setLead({ ...lead, name: v }) },
+                    { id: 'leadEmail', label: 'Lead email', placeholder: 'you@college.edu', value: lead.email, onChange: (v: string) => setLead({ ...lead, email: v }), type: 'email' },
+                    { id: 'leadPhone', label: 'Phone', placeholder: '+91 ...', value: lead.phone, onChange: (v: string) => setLead({ ...lead, phone: v }) },
+                    { id: 'leadCollege', label: 'College', placeholder: 'Your institution', value: lead.college, onChange: (v: string) => setLead({ ...lead, college: v }) },
                   ].map((field, i) => (
                     <motion.div
                       key={field.id}
@@ -274,9 +274,9 @@ export function RegisterForm() {
                     </div>
                     <div className="grid gap-3 sm:grid-cols-3">
                       {[
-                        { placeholder: 'Name', value: m.name, onChange: (v) => updateMember(i, 'name', v) },
-                        { placeholder: 'Email', value: m.email, onChange: (v) => updateMember(i, 'email', v), type: 'email' },
-                        { placeholder: 'College', value: m.college, onChange: (v) => updateMember(i, 'college', v) },
+                        { placeholder: 'Name', value: m.name, onChange: (v: string) => updateMember(i, 'name', v) },
+                        { placeholder: 'Email', value: m.email, onChange: (v: string) => updateMember(i, 'email', v), type: 'email' },
+                        { placeholder: 'College', value: m.college, onChange: (v: string) => updateMember(i, 'college', v) },
                       ].map((field, j) => (
                         <motion.input 
                           key={j}

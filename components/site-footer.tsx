@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { motion } from 'motion/react'
 import Link from 'next/link'
 import { Globe, Share2, MessageCircle, AtSign, Play, ArrowUpRight, Mail, MapPin } from 'lucide-react'
 import { EVENT, NAV_LINKS, WEBSITE_TEAM } from '@/lib/data'
@@ -44,7 +45,10 @@ export function SiteFooter() {
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
         {/* Big CTA */}
         <Reveal>
-          <div className="flex flex-col items-start justify-between gap-8 rounded-3xl border border-border bg-foreground p-8 text-background sm:p-12 lg:flex-row lg:items-center">
+          <motion.div
+            className="flex flex-col items-start justify-between gap-8 rounded-3xl border border-border bg-foreground p-8 text-background sm:p-12 lg:flex-row lg:items-center"
+            whileHover={{ y: -4, boxShadow: '0 8px 24px rgba(0,0,0,0.15)' }}
+          >
             <div>
               <h2 className="font-display text-3xl font-bold tracking-tight text-balance sm:text-5xl">
                 Ready to build the future?
@@ -55,17 +59,17 @@ export function SiteFooter() {
             </div>
             <Link
               href="/register"
-              className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-background px-7 py-4 text-base font-medium text-foreground transition-transform hover:-translate-y-0.5"
+              className="group inline-flex shrink-0 items-center gap-2 rounded-full bg-background px-7 py-4 text-base font-medium text-foreground transition-transform hover:-translate-y-1"
             >
               Register Now
               <ArrowUpRight className="size-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
-          </div>
+          </motion.div>
         </Reveal>
 
         {/* Link columns */}
-        <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-          <div className="lg:col-span-1">
+        <Stagger className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+          <StaggerItem className="lg:col-span-1">
             <div className="flex items-center gap-2">
               <span className="flex size-7 items-center justify-center rounded-md bg-foreground text-background">
                 <span className="font-display text-sm font-bold">C</span>
@@ -85,48 +89,48 @@ export function SiteFooter() {
                 <Mail className="size-4" /> codefiesta@gitjaipur.com
               </a>
             </div>
-          </div>
+          </StaggerItem>
 
-          <div>
+          <StaggerItem>
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">Sections</p>
             <ul className="mt-4 grid gap-2.5">
               {NAV_LINKS.map((l) => (
                 <li key={l.href}>
-                  <a href={l.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                  <a href={l.href} className="text-sm text-muted-foreground transition-colors hover:text-foreground link-underline">
                     {l.label}
                   </a>
                 </li>
               ))}
             </ul>
-          </div>
+          </StaggerItem>
 
-          <div>
+          <StaggerItem>
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">Links</p>
             <ul className="mt-4 grid gap-2.5">
               <li>
-                <Link href="/register" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                <Link href="/register" className="text-sm text-muted-foreground transition-colors hover:text-foreground link-underline">
                   Register
                 </Link>
               </li>
               <li>
-                <a href={EVENT.collegeUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                <a href={EVENT.collegeUrl} target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground transition-colors hover:text-foreground link-underline">
                   GIT Jaipur
                 </a>
               </li>
               <li>
-                <a href="#faq" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                <a href="#faq" className="text-sm text-muted-foreground transition-colors hover:text-foreground link-underline">
                   Code of Conduct
                 </a>
               </li>
               <li>
-                <a href="#faq" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
+                <a href="#faq" className="text-sm text-muted-foreground transition-colors hover:text-foreground link-underline">
                   Sponsorship
                 </a>
               </li>
             </ul>
-          </div>
+          </StaggerItem>
 
-          <div>
+          <StaggerItem>
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">Follow</p>
             <div className="mt-4 flex flex-wrap gap-2">
               {SOCIALS.map((s) => {
@@ -135,16 +139,16 @@ export function SiteFooter() {
                   <a
                     key={s.label}
                     href={s.href}
-                    aria-label={s.label}
-                    className="flex size-10 items-center justify-center rounded-full border border-border transition-colors hover:bg-foreground hover:text-background"
+                    aria-label={s.label}                    
+                    className="flex size-10 items-center justify-center rounded-full border border-border transition-all hover:bg-foreground hover:text-background hover:scale-110 hover:-rotate-12"
                   >
                     <Icon className="size-4" />
                   </a>
                 )
               })}
             </div>
-          </div>
-        </div>
+          </StaggerItem>
+        </Stagger>
 
         {/* Website team */}
         <div className="mt-16 border-t border-border pt-10">
