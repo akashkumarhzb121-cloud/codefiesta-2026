@@ -24,53 +24,123 @@ export function SiteHeader() {
     <header className="fixed inset-x-0 top-0 z-50">
       <div
         className={cn(
-          'transition-colors duration-300',
+          'transition-all duration-300',
           scrolled
             ? 'border-b border-border bg-background/80 backdrop-blur-xl'
             : 'border-b border-transparent bg-transparent',
         )}
       >
         <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href="#top" className="group flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-md bg-foreground text-background">
-              <span className="font-display text-sm font-bold">C</span>
-            </span>
-            <span className="font-display text-base font-bold tracking-tight">
-              Codefiesta
-              <span className="text-muted-foreground">'26</span>
-            </span>
-          </Link>
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            <Link href="#top" className="group flex items-center gap-2">
+              <motion.span 
+                className="flex h-7 w-7 items-center justify-center rounded-md bg-foreground text-background"
+                animate={{ rotate: [0, 5, -5, 0] }}
+                transition={{ duration: 4, repeat: Infinity }}
+              >
+                <span className="font-display text-sm font-bold">C</span>
+              </motion.span>
+              <motion.span 
+                className="font-display text-base font-bold tracking-tight"
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                Codefiesta
+                <motion.span 
+                  className="text-muted-foreground"
+                  animate={{ opacity: [0.6, 1, 0.6] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                >
+                  '26
+                </motion.span>
+              </motion.span>
+            </Link>
+          </motion.div>
 
-          <div className="hidden items-center gap-1 md:flex">
-            {NAV_LINKS.map((link) => (
-              <a
+          <motion.div 
+            className="hidden items-center gap-1 md:flex"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            {NAV_LINKS.map((link, i) => (
+              <motion.a
                 key={link.href}
                 href={link.href}
-                className="relative rounded-full px-3.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                className="group relative rounded-full px-3.5 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 + i * 0.05 }}
+                whileHover={{ scale: 1.05 }}
               >
+                <motion.span
+                  className="absolute inset-x-0 bottom-1 h-0.5 bg-foreground opacity-0 group-hover:opacity-100 transition-opacity"
+                  layoutId={`nav-underline-${link.href}`}
+                />
                 {link.label}
-              </a>
+              </motion.a>
             ))}
-          </div>
+          </motion.div>
 
-          <div className="flex items-center gap-2">
-            <Link
-              href="/register"
-              className="group hidden items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-transform hover:-translate-y-0.5 sm:inline-flex"
+          <motion.div 
+            className="flex items-center gap-2"
+            initial={{ opacity: 0, x: 10 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.3 }}
+          >
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
-              Register
-              <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
-            <button
+              <Link
+                href="/register"
+                className="group hidden items-center gap-1.5 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background transition-all duration-300 hover:shadow-lg sm:inline-flex"
+              >
+                Register
+                <motion.div
+                  animate={{ x: [0, 2, 0], y: [0, -2, 0] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <ArrowUpRight className="size-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </motion.div>
+              </Link>
+            </motion.div>
+            <motion.button
               type="button"
               onClick={() => setOpen((v) => !v)}
               className="inline-flex size-10 items-center justify-center rounded-full border border-border md:hidden"
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
+              whileHover={{ scale: 1.05, backgroundColor: 'var(--muted)' }}
+              whileTap={{ scale: 0.95 }}
             >
-              {open ? <X className="size-5" /> : <Menu className="size-5" />}
-            </button>
-          </div>
+              <AnimatePresence mode="wait">
+                {open ? (
+                  <motion.div
+                    key="close"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                  >
+                    <X className="size-5" />
+                  </motion.div>
+                ) : (
+                  <motion.div
+                    key="open"
+                    initial={{ rotate: -90, opacity: 0 }}
+                    animate={{ rotate: 0, opacity: 1 }}
+                    exit={{ rotate: 90, opacity: 0 }}
+                  >
+                    <Menu className="size-5" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.button>
+          </motion.div>
         </nav>
 
         <motion.div

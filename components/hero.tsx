@@ -5,6 +5,7 @@ import { motion, useScroll, useTransform } from 'motion/react'
 import { useRef } from 'react'
 import { ArrowDown, ArrowUpRight, MapPin, CalendarDays, Sparkles } from 'lucide-react'
 import { EVENT, SPONSORS } from '@/lib/data'
+import { Floating, Pulse } from '@/components/motion-primitives'
 
 const container = {
   hidden: {},
@@ -28,6 +29,10 @@ export function Hero() {
       className="relative flex min-h-[100svh] flex-col justify-between overflow-hidden pt-16"
     >
       <div className="pointer-events-none absolute inset-0 grid-noise opacity-60" aria-hidden="true" />
+      
+      {/* Enhanced background gradient animation */}
+      <div className="pointer-events-none absolute -inset-x-20 -top-40 h-96 bg-gradient-to-b from-foreground/5 via-foreground/0 to-transparent blur-3xl" aria-hidden="true" />
+      
       <div
         className="pointer-events-none absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-background to-transparent"
         aria-hidden="true"
@@ -41,25 +46,37 @@ export function Hero() {
         animate="show"
       >
         <motion.div variants={item} className="mb-8 flex flex-wrap items-center gap-3">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-            <Sparkles className="size-3.5" />
+          <motion.span 
+            className="inline-flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1 font-mono text-xs uppercase tracking-widest text-muted-foreground glow-effect"
+            whileHover={{ scale: 1.05, boxShadow: '0 0 12px rgba(0, 0, 0, 0.1)' }}
+            transition={{ type: 'spring', stiffness: 300 }}
+          >
+            <Pulse scale={true} opacity={true}>
+              <Sparkles className="size-3.5" />
+            </Pulse>
             National Hackathon
-          </span>
-          <span className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          </motion.span>
+          <motion.span 
+            className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-muted-foreground"
+            whileHover={{ scale: 1.05 }}
+          >
             <CalendarDays className="size-3.5" />
             {EVENT.dates}
-          </span>
-          <span className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-muted-foreground">
+          </motion.span>
+          <motion.span 
+            className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-widest text-muted-foreground"
+            whileHover={{ scale: 1.05 }}
+          >
             <MapPin className="size-3.5" />
             {EVENT.location}
-          </span>
+          </motion.span>
         </motion.div>
 
         <motion.h1
           style={{ y: yTitle }}
           className="font-display text-[15vw] font-bold leading-[0.86] tracking-tighter text-balance sm:text-[13vw] lg:text-[11rem]"
         >
-          <motion.span variants={item} className="block">
+          <motion.span variants={item} className="block animate-pulse-glow">
             Code<span className="text-stroke">fiesta</span>
           </motion.span>
           <motion.span variants={item} className="block">
@@ -79,20 +96,38 @@ export function Hero() {
         </motion.div>
 
         <motion.div variants={item} className="mt-10 flex flex-wrap items-center gap-3">
-          <Link
-            href="/register"
-            className="group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-base font-medium text-background transition-transform hover:-translate-y-0.5"
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 17 }}
           >
-            Register Now
-            <ArrowUpRight className="size-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-          </Link>
-          <a
-            href="#focus"
-            className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3.5 text-base font-medium transition-colors hover:bg-muted"
+            <Link
+              href="/register"
+              className="group inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-base font-medium text-background transition-all duration-300 hover:shadow-lg"
+            >
+              Register Now
+              <motion.div
+                animate={{ x: [0, 2, 0], y: [0, -2, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <ArrowUpRight className="size-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </motion.div>
+            </Link>
+          </motion.div>
+          <motion.div
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
           >
-            Explore Tracks
-            <ArrowDown className="size-5" />
-          </a>
+            <a
+              href="#focus"
+              className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3.5 text-base font-medium transition-all duration-300 hover:bg-muted hover:border-foreground/30"
+            >
+              Explore Tracks
+              <motion.div animate={{ y: [0, 4, 0] }} transition={{ duration: 2, repeat: Infinity }}>
+                <ArrowDown className="size-5" />
+              </motion.div>
+            </a>
+          </motion.div>
         </motion.div>
       </motion.div>
 

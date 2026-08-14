@@ -21,13 +21,21 @@ export function Faq() {
             description="Everything you need to know before you register. Still curious? Reach out and we’ll help."
           />
           <Reveal delay={0.1}>
-            <Link
-              href="/register"
-              className="group mt-8 inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-base font-medium text-background transition-transform hover:-translate-y-0.5"
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              transition={{ type: 'spring', stiffness: 300 }}
             >
-              Register your team
-              <ArrowUpRight className="size-5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
+              <Link
+                href="/register"
+                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-foreground px-6 py-3.5 text-base font-medium text-background transition-all duration-300 hover:shadow-lg"
+              >
+                Register your team
+                <motion.div animate={{ x: [0, 2, 0], y: [0, -2, 0] }} transition={{ duration: 2, repeat: Infinity }}>
+                  <ArrowUpRight className="size-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </motion.div>
+              </Link>
+            </motion.div>
           </Reveal>
         </div>
 
@@ -36,24 +44,32 @@ export function Faq() {
             const isOpen = open === i
             return (
               <Reveal key={faq.q} delay={i * 0.03}>
-                <div className="overflow-hidden rounded-2xl border border-border bg-background">
-                  <button
+                <motion.div 
+                  className="overflow-hidden rounded-2xl border border-border bg-background transition-all duration-300 card-hover"
+                  whileHover={{ y: -2, boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)' }}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                >
+                  <motion.button
                     type="button"
                     onClick={() => setOpen(isOpen ? null : i)}
                     aria-expanded={isOpen}
                     className="flex w-full items-center justify-between gap-4 p-5 text-left"
+                    whileHover={{ backgroundColor: 'var(--muted)' }}
+                    transition={{ duration: 0.2 }}
                   >
                     <span className="font-display text-base font-semibold tracking-tight sm:text-lg">
                       {faq.q}
                     </span>
                     <motion.span
                       animate={{ rotate: isOpen ? 45 : 0 }}
-                      transition={{ duration: 0.25 }}
+                      transition={{ duration: 0.25, type: 'spring', stiffness: 300 }}
                       className="flex size-8 shrink-0 items-center justify-center rounded-full border border-border"
                     >
                       <Plus className="size-4" />
                     </motion.span>
-                  </button>
+                  </motion.button>
                   <AnimatePresence initial={false}>
                     {isOpen && (
                       <motion.div
@@ -62,13 +78,18 @@ export function Faq() {
                         exit={{ height: 0, opacity: 0 }}
                         transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
                       >
-                        <p className="px-5 pb-5 text-sm leading-relaxed text-muted-foreground">
+                        <motion.p 
+                          className="px-5 pb-5 text-sm leading-relaxed text-muted-foreground"
+                          initial={{ opacity: 0 }}
+                          animate={{ opacity: 1 }}
+                          transition={{ delay: 0.15 }}
+                        >
                           {faq.a}
-                        </p>
+                        </motion.p>
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </div>
+                </motion.div>
               </Reveal>
             )
           })}
