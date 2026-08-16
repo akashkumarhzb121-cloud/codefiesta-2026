@@ -119,31 +119,19 @@ function HighlightReel() {
             transition={{ delay: i * 0.1 }}
             viewport={{ once: true, margin: '-50px' }}
           >
-            <Image
-              src={h.image || '/placeholder.svg'}
-              alt={h.title}
-              fill
-              sizes="(max-width: 1024px) 85vw, 520px"
-              className="object-cover grayscale transition-all duration-700 group-hover/card:scale-110 group-hover/card:grayscale-0"
+            <video
+              src={h.image}
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute h-full w-full object-cover"
             />
             <motion.div 
               className="absolute inset-0 bg-gradient-to-t from-foreground/60 to-transparent"
               animate={{ opacity: [0.5, 0.6, 0.5] }}
               transition={{ duration: 4, repeat: Infinity }}
             />
-            <motion.div 
-              className="absolute inset-0 flex items-center justify-center"
-              whileHover={{ scale: 1.1 }}
-              transition={{ type: 'spring', stiffness: 300 }}
-            >
-              <motion.span 
-                className="flex size-16 items-center justify-center rounded-full bg-background/90 transition-all duration-300 group-hover/card:scale-125 group-hover/card:shadow-lg"
-                animate={{ scale: [1, 1.05, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <Play className="size-6 translate-x-0.5 fill-foreground" />
-              </motion.span>
-            </motion.div>
             <div className="absolute bottom-0 left-0 flex w-full items-end justify-between p-5 text-background">
               <motion.p 
                 className="font-display text-lg font-semibold tracking-tight"

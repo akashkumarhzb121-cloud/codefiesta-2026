@@ -252,10 +252,10 @@ export const SPONSORS = [
 export type Highlight = { title: string; image: string; year: string }
 
 export const HIGHLIGHTS: Highlight[] = [
-  { title: 'Opening Keynote 2025', image: '/highlight-1.png', year: '2025' },
-  { title: 'Overnight Build Sprint', image: '/highlight-2.png', year: '2025' },
-  { title: 'Grand Finale Pitches', image: '/highlight-3.png', year: '2024' },
-  { title: 'Award Ceremony', image: '/highlight-4.png', year: '2024' },
+  { title: 'Opening Keynote 2025', image: '/highlight-1.mp4', year: '2025' },
+  { title: 'Overnight Build Sprint', image: '/highlight-2.mp4', year: '2025' },
+  { title: 'Grand Finale Pitches', image: '/highlight-3.mp4', year: '2024' },
+  { title: 'Award Ceremony', image: '/highlight-4.mp4', year: '2024' },
 ]
 
 export type ProblemStatement = {
